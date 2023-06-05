@@ -32,7 +32,8 @@ export default function Login({ history }) {
   };
 
   const submitHandle = () => {
-    localStorage.setItem('user', JSON.stringify({ email: inputValues.email }));
+    const { email } = inputValues;
+    localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/meals');
   };
 

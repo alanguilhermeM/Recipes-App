@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import Login from '../pages/Login';
 
 describe('Pagina login', () => {
+  const email = 'dhiego@gmail.com';
   render(<Login />);
   test('verifica se o input email está presente na tela', () => {
     render(<Login />);
@@ -28,14 +29,16 @@ describe('Pagina login', () => {
 
   test('verifica se ao digitar o email e o password no formato correto ele habilita o botão e se não estiver o botão é desabilitado novamente', () => {
     render(<Login />);
+    const button = screen.getByTestId('login-submit-btn');
     const passwordInput = screen.getByTestId('password-input');
     const emailInput = screen.getByTestId('email-input');
-    userEvent.type(emailInput, 'dhiego@gmail.com');
+    userEvent.type(emailInput, email);
     userEvent.type(passwordInput, '1234567788');
-    expect(screen.getByTestId('login-submit-btn')).not.toBeDisabled();
-    userEvent.type(emailInput, 'dhiego@gmail.com');
+    expect(button).not.toBeDisabled();
+    userEvent.click(button);
+    userEvent.type(emailInput, email);
     userEvent.type(passwordInput, '12');
-    expect(screen.getByTestId('login-submit-btn')).toBeDisabled();
+    expect(button).toBeDisabled();
     userEvent.type(emailInput, 'dhiego@');
     userEvent.type(passwordInput, '12fdfsdfafdfafdfda');
     expect(screen.getAllByRole('button')).toBeDisabled();

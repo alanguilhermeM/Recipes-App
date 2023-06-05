@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import MyContext from './myContext';
 
 function Provider({ children }) {
-//   const [state, setState] = useState();
+  // const [state, setState] = useState();
 
   return (
-    <MyContext.Provider value={ state }>
+    <MyContext.Provider value={ null }>
       {children}
     </MyContext.Provider>
   );

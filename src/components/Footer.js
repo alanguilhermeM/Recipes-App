@@ -6,7 +6,10 @@ import melIcon from '../images/mealIcon.svg';
 export default function Footer() {
   const history = useHistory();
   return (
-    <footer data-testid="footer">
+    <footer
+      data-testid="footer"
+      style={ { position: 'fixed', bottom: 0 } }
+    >
       <button
         data-testid="drinks-bottom-btn"
         type="button"

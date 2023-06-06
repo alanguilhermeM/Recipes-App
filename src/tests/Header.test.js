@@ -18,3 +18,5 @@ describe('Testando o componentes de Header', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 });
+
+// ok

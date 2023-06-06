@@ -21,7 +21,6 @@ function Drinks() {
   if (drinks.length === 0) return <div>Carregando...</div>;
   return (
     <div>
-      <p>test</p>
       {drinks.map((drink, index) => (
         <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
           <Link

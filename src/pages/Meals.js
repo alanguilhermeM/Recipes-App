@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Meals() {
-  const [meals, setMeals] = useState(null);
+  const [meals, setMeals] = useState([]);
   const maxNumber = 12;
   const fetchMeals = async () => {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     const data = await response.json();
     const filter = await data.meals.slice(0, maxNumber);
+    console.log(filter);
     setMeals(filter);
   };
   useEffect(() => {
-    console.log(fetchMeals());
+    fetchMeals();
   }, []);
+
   if (meals.length === 0) return <div>Carregando...</div>;
 
   return (

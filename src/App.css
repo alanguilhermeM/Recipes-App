@@ -1,3 +1,18 @@
+.img-drinks {
+  background-color: green;
+  width: 100px;
+}
+
+.container-drinks {
+  display: flex;
+  gap: 5px;
+}
+
+.container-meals {
+  display: flex;
+  gap: 5px;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;

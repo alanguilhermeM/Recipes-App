@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Drinks() {
   const maxNumber = 12;
@@ -20,23 +22,27 @@ function Drinks() {
 
   if (drinks.length === 0) return <div>Carregando...</div>;
   return (
-    <div>
-      {drinks.map((drink, index) => (
-        <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
-          <Link
-            to={ `/drinks/${drink.idDrink}` }
-          >
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ drink.strDrinkThumb }
-              alt={ `${drink.strDrink} ilustration` }
-            />
-            <h1 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h1>
-          </Link>
-        </div>
-      ))}
-    </div>
-
+    <>
+      <Header />
+      <div className="container-drinks">
+        {drinks.map((drink, index) => (
+          <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
+            <Link
+              to={ `/drinks/${drink.idDrink}` }
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ drink.strDrinkThumb }
+                alt={ `${drink.strDrink} ilustration` }
+                className="img-drinks"
+              />
+              <h1 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h1>
+            </Link>
+          </div>
+        ))}
+      </div>
+      <Footer />
+    </>
   );
 }
 

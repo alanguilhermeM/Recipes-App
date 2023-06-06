@@ -14,6 +14,7 @@ export default function Footer() {
         data-testid="drinks-bottom-btn"
         type="button"
         onClick={ () => history.push('/drinks') }
+        src={ drinkIcon }
       >
         <img src={ drinkIcon } alt="Link para a página de bebidas" />
       </button>
@@ -21,6 +22,7 @@ export default function Footer() {
         data-testid="meals-bottom-btn"
         type="button"
         onClick={ () => history.push('/meals') }
+        src={ melIcon }
       >
         <img src={ melIcon } alt="Link para a página de comidas" />
       </button>

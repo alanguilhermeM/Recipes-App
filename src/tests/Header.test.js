@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../helpers/renderWithRouter';
 
@@ -9,8 +9,9 @@ describe('Testando o componentes de Header', () => {
     expect(screen.getByRole('img', { name: /profile/i })).toBeInTheDocument();
   });
 
-  test('Testando o header na rota meals', () => {
+  test('Testando o header na rota meals', async () => {
     renderWithRouter('/meals');
+    await waitForElementToBeRemoved(() => screen.getByText('Carregando...'), { timeout: 10000 });
     const buttonPesquisa = screen.getByRole('img', { name: /busca/i });
     expect(buttonPesquisa).toBeInTheDocument();
 

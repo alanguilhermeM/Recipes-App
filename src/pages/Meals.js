@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Meals() {
   const [meals, setMeals] = useState([]);
@@ -18,24 +20,28 @@ function Meals() {
   if (meals.length === 0) return <div>Carregando...</div>;
 
   return (
+    <>
+      <Header />
+      <div className="container-meals">
+        { meals.map((meal, index) => (
+          <div key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
+            <Link
+              to={ `/meals/${meal.idMeal}` }
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ meal.strMealThumb }
+                alt={ `${meal.strMeal} ilustration` }
+                width="100px"
+              />
+              <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
 
-    <div>
-      { meals.map((meal, index) => (
-        <div key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
-          <Link
-            to={ `/meals/${meal.idMeal}` }
-          >
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ meal.strMealThumb }
-              alt={ `${meal.strMeal} ilustration` }
-            />
-            <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
-
-          </Link>
-        </div>
-      ))}
-    </div>
+            </Link>
+          </div>
+        ))}
+      </div>
+      <Footer />
+    </>
   );
 }
 

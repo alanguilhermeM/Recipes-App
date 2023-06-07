@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Provider from './context/myProvider';
 import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import Provider from './context/myProvider';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 

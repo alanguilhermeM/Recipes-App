@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import Provider from './context/myProvider';
 import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -9,7 +10,9 @@ ReactDOM
   .createRoot(document.getElementById('root'))
   .render(
     <BrowserRouter>
-      <App />
+      <Provider>
+        <App />
+      </Provider>
     </BrowserRouter>,
   );
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import { screen, render, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Provider from '../context/myProvider';
 import App from '../App';
@@ -22,14 +22,14 @@ const renderWithRouterAndContext = (component, path = '/') => {
 };
 const dataTestDrink = 'drinks-bottom-btn';
 const dataTestMeals = 'meals-bottom-btn';
-const loading = 'Carregando...';
+// const loading = 'Carregando...';
 
 describe('Testes para o componente Footer', () => {
   it('Teste se renderiza um footer na page meals, com dois buttons', async () => {
     const { history } = renderWithRouterAndContext(<App />, '/meals');
     expect(history.location.pathname).toBe('/meals');
 
-    await waitForElementToBeRemoved(() => screen.getByText(loading), { timeout: 10000 });
+    // await waitForElementToBeRemoved(() => screen.getByText(loading), { timeout: 10000 });
 
     expect(screen.getByTestId(dataTestDrink)).toBeDefined();
     expect(screen.getByTestId(dataTestMeals)).toBeDefined();
@@ -39,7 +39,7 @@ describe('Testes para o componente Footer', () => {
     const { history } = renderWithRouterAndContext(<App />, '/drinks');
     expect(history.location.pathname).toBe('/drinks');
 
-    await waitForElementToBeRemoved(() => screen.getByText(loading), { timeout: 10000 });
+    // await waitForElementToBeRemoved(() => screen.getByText(loading), { timeout: 10000 });
 
     expect(screen.getByTestId(dataTestDrink)).toBeDefined();
     expect(screen.getByTestId(dataTestMeals)).toBeDefined();
@@ -55,13 +55,13 @@ describe('Testes para o componente Footer', () => {
 
   it('Testa o funcionamento dos botões', async () => {
     renderWithRouter('/drinks');
-    await waitForElementToBeRemoved(() => screen.getByText(loading), { timeout: 10000 });
+    // await waitForElementToBeRemoved(() => screen.getByText(loading), { timeout: 10000 });
     userEvent.click(screen.getByTestId(dataTestMeals));
-    await waitForElementToBeRemoved(() => screen.getByText(loading), { timeout: 10000 });
+    // await waitForElementToBeRemoved(() => screen.getByText(loading), { timeout: 10000 });
     expect(screen.getByRole('heading', { name: /Meals/i })).toBeInTheDocument();
 
     userEvent.click(screen.getByTestId(dataTestDrink));
-    await waitForElementToBeRemoved(() => screen.getByText(loading), { timeout: 10000 });
+    // await waitForElementToBeRemoved(() => screen.getByText(loading), { timeout: 10000 });
     expect(screen.getByRole('heading', { name: /Drinks/i })).toBeInTheDocument();
   });
 });

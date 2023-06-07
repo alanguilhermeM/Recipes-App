@@ -3,11 +3,16 @@ import { useLocation, Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import { nomeRotas, semPesquisa } from '../helpers/locations';
+import SearchBar from './SearchBar';
 
 export default function Header() {
+  const [searchBar, setSearchBar] = useState(false);
   const location = useLocation();
   const pesquisa = !semPesquisa.some((p) => p === nomeRotas[location.pathname]); // para nao aparecer o icone de pesquisa em algumas rotas
-  const [inputSearch, setInputSearch] = useState(false);
+
+  const toggleSearchBar = () => {
+    setSearchBar((prevState) => !prevState);
+  };
   return (
     <header>
       <Link to="/profile">
@@ -22,18 +27,15 @@ export default function Header() {
         <div>
           <button
             type="button"
-            onClick={ () => setInputSearch(!inputSearch) }
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            onClick={ () => toggleSearchBar() }
           >
             <img
-              data-testid="search-top-btn"
               src={ searchIcon }
               alt="busca"
             />
           </button>
-          { inputSearch && <input
-            type="text"
-            data-testid="search-input"
-          /> }
         </div>)}
 
       <h1
@@ -41,6 +43,7 @@ export default function Header() {
       >
         {nomeRotas[location.pathname]}
       </h1>
+      <SearchBar searchBar={ searchBar } />
     </header>
   );
 }

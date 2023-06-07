@@ -1,13 +1,16 @@
-// import React from 'react';
-
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './myContext';
 
 function Provider({ children }) {
-  // const [state, setState] = useState();
+  const [searchState, setSearchState] = useState([]);
+  const valor = useMemo(
+    () => ({ searchState, setSearchState }),
+    [searchState, setSearchState],
+  );
 
   return (
-    <MyContext.Provider value={ null }>
+    <MyContext.Provider value={ valor }>
       {children}
     </MyContext.Provider>
   );

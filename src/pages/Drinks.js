@@ -30,20 +30,30 @@ function Drinks() {
   };
 
   async function handleClick(category) {
-    const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
-    const response = await fetch(endpoint);
-    const data = await response.json();
-    const categoryFilters = await data.drinks.slice(0, maxNumber);
-    setCategoryFilter(categoryFilters);
-    setFiltred(true);
+    if (categoryFilter.length === 0) {
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      const categoryFilters = await data.drinks.slice(0, maxNumber);
+      setCategoryFilter(categoryFilters);
+      setFiltred(true);
+    } else {
+      setFiltred(false);
+      fetchDrinks();
+    }
   }
 
   async function handleClickAll(param) {
-    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/${param}`);
-    const data = await response.json();
-    const filter = await data.drinks.slice(0, maxNumber);
-    setFiltredAll(true);
-    setAllCategory(filter);
+    if (allCategory.length === 0) {
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/${param}`);
+      const data = await response.json();
+      const filter = await data.drinks.slice(0, maxNumber);
+      setFiltredAll(true);
+      setAllCategory(filter);
+    } else {
+      setFiltredAll(false);
+      fetchDrinks();
+    }
   }
 
   useEffect(() => {

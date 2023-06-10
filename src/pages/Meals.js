@@ -33,21 +33,30 @@ function Meals() {
   };
 
   async function handleClick(category) {
-    const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
-    const response = await fetch(endpoint);
-    const data = await response.json();
-    const categoryFilters = await data.meals.slice(0, maxNumber);
-    setCategoryFilter(categoryFilters);
-    setFiltred(true);
+    if (categoryFilter.length === 0) {
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      const categoryFilters = await data.meals.slice(0, maxNumber);
+      setCategoryFilter(categoryFilters);
+      setFiltred(true);
+    } else {
+      setFiltred(false);
+      fetchMeals();
+    }
   }
 
   async function handleClickAll(param) {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/${param}`);
-    const data = await response.json();
-    const filter = await data.meals.slice(0, maxNumber);
-    console.log(filter);
-    setFiltredAll(true);
-    setAllCategory(filter);
+    if (allCategory.length === 0) {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/${param}`);
+      const data = await response.json();
+      const filter = await data.meals.slice(0, maxNumber);
+      setFiltredAll(true);
+      setAllCategory(filter);
+    } else {
+      setFiltredAll(false);
+      fetchMeals();
+    }
   }
 
   useEffect(() => {

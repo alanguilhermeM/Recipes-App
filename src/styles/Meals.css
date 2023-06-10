@@ -10,8 +10,8 @@
 .container {
   display: flex;
   height: 60px;
-  padding: 10px;
   justify-content: center;
+  padding: 10px;
   width: 80px;
 }
 

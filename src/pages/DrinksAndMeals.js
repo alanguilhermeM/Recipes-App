@@ -1,19 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import Header from '../components/Header';
 import MyContext from '../context/myContext';
-// import Footer from '../components/Footer';
-// import Drinks from './Drinks';
-// import Meals from './Meals';
+import '../styles/Meals.css';
 
 export default function DrinksAndMeals() {
   const { location } = useHistory();
-  // const { path, setPath } = useState(true);
-  // function handlePath() {
-  //   if (location.pathname === '/meals') {
-  //     setPath(false);
-  //   }
-  // }
+
   const { searchState } = useContext(MyContext);
   const { pathname } = location;
   const [slice, setSlice] = useState([]);
@@ -46,11 +38,16 @@ export default function DrinksAndMeals() {
   return (
     <div>
       {slice.map((recipe, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
+        <div
+          className="container-meals"
+          key={ index }
+          data-testid={ `${index}-recipe-card` }
+        >
           <img
             src={ recipe.strMealThumb || recipe.strDrinkThumb }
             alt={ recipe.strMeal || recipe.strDrink }
             data-testid={ `${index}-card-img` }
+            className="img-meals"
           />
           <p data-testid={ `${index}-card-name` }>{recipe.strMeal || recipe.strDrink}</p>
         </div>

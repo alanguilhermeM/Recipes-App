@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-// import Header from '../components/Header';
-// import Footer from '../components/Footer';
+import '../styles/Meals.css';
 
 function Meals() {
   const [meals, setMeals] = useState([]);
@@ -70,8 +69,12 @@ function Meals() {
     <div className="container-meals">
       {filtredAll && (
         allCategory.map((meal, index) => (
-          <div key={ meal.idMrink } data-testid={ `${index}-recipe-card` }>
-            <h4>{meal.strMeal}</h4>
+          <div
+            className="container"
+            key={ meal.idMrink }
+            data-testid={ `${index}-recipe-card` }
+          >
+            <p>{meal.strMeal}</p>
             <img
               data-testid={ `${index}-card-img` }
               src={ meal.strMealThumb }
@@ -84,7 +87,11 @@ function Meals() {
       {!filtredAll && (
         filtred ? (
           categoryFilter.map((meal, index) => (
-            <div key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
+            <div
+              className="container"
+              key={ meal.idMeal }
+              data-testid={ `${index}-recipe-card` }
+            >
               <Link to={ `/meals/${meal.idMeal}` }>
                 <img
                   data-testid={ `${index}-card-img` }
@@ -92,13 +99,17 @@ function Meals() {
                   alt={ `${meal.strMeal} ilustration` }
                   className="img-meals"
                 />
-                <h1 data-testid={ `${index}-card-name` }>{meal.strMeal}</h1>
+                <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
               </Link>
             </div>
           ))
         ) : (
           meals.map((meal, index) => (
-            <div key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
+            <div
+              className="container"
+              key={ meal.idMeal }
+              data-testid={ `${index}-recipe-card` }
+            >
               <Link to={ `/meals/${meal.idMeal}` }>
                 <img
                   data-testid={ `${index}-card-img` }
@@ -106,7 +117,7 @@ function Meals() {
                   alt={ `${meal.strMeal} ilustration` }
                   className="img-meals"
                 />
-                <h1 data-testid={ `${index}-card-name` }>{meal.strMeal}</h1>
+                <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
               </Link>
             </div>
           ))

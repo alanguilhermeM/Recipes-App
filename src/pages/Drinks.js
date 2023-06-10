@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-// import Header from '../components/Header';
-// import Footer from '../components/Footer';
+import '../styles/Drinks.css';
 
 function Drinks() {
   const maxNumber = 12;
@@ -66,8 +65,12 @@ function Drinks() {
     <div className="container-drinks">
       {filtredAll && (
         allCategory.map((drink, index) => (
-          <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
-            <h4>{drink.strDrink}</h4>
+          <div
+            className="container"
+            key={ drink.idDrink }
+            data-testid={ `${index}-recipe-card` }
+          >
+            <p>{drink.strDrink}</p>
             <img
               data-testid={ `${index}-card-img` }
               src={ drink.strDrinkThumb }
@@ -80,7 +83,11 @@ function Drinks() {
       {!filtredAll && (
         filtred ? (
           categoryFilter.map((drink, index) => (
-            <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
+            <div
+              className="container"
+              key={ drink.idDrink }
+              data-testid={ `${index}-recipe-card` }
+            >
               <Link to={ `/drinks/${drink.idDrink}` }>
                 <img
                   data-testid={ `${index}-card-img` }
@@ -88,13 +95,17 @@ function Drinks() {
                   alt={ `${drink.strDrink} ilustration` }
                   className="img-drinks"
                 />
-                <h1 data-testid={ `${index}-card-name` }>{drink.strDrink}</h1>
+                <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
               </Link>
             </div>
           ))
         ) : (
           drinks.map((drink, index) => (
-            <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
+            <div
+              className="container"
+              key={ drink.idDrink }
+              data-testid={ `${index}-recipe-card` }
+            >
               <Link to={ `/drinks/${drink.idDrink}` }>
                 <img
                   data-testid={ `${index}-card-img` }
@@ -102,7 +113,7 @@ function Drinks() {
                   alt={ `${drink.strDrink} ilustration` }
                   className="img-drinks"
                 />
-                <h1 data-testid={ `${index}-card-name` }>{drink.strDrink}</h1>
+                <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
               </Link>
             </div>
           ))

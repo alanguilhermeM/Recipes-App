@@ -9,7 +9,7 @@ function SearchBar({ searchBar }) {
   const [searchType, setSearchType] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [plusLength, setPlusLength] = useState(true);
-  const { setSearchState } = useContext(MyContext);
+  const { setSearchState, setSearch } = useContext(MyContext);
   const firstLetter = 'first-letter';
 
   const handleSearchTypeChange = (event) => {
@@ -82,6 +82,7 @@ function SearchBar({ searchBar }) {
         error.message = 'Sorry, we haven\'t found any recipes for these filters.';
         global.alert(error.message); // Caso a receita não seja encontrada, vai exibir um alerta
       });
+    setSearch(true);
   };
 
   return (

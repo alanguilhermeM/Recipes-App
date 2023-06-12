@@ -5,10 +5,16 @@ import MyContext from './myContext';
 function Provider({ children }) {
   const [searchState, setSearchState] = useState([]);
   const [search, setSearch] = useState(false);
+  const [recomendations, setRecomendations] = useState([]);
 
   const valor = useMemo(
-    () => ({ searchState, setSearchState, search, setSearch }),
-    [searchState, setSearchState, search, setSearch],
+    () => ({ searchState,
+      setSearchState,
+      search,
+      setSearch,
+      recomendations,
+      setRecomendations }),
+    [searchState, setSearchState, search, setSearch, recomendations, setRecomendations],
   );
 
   return (

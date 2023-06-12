@@ -3,15 +3,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 
 import Login from './pages/Login';
-// import Meals from './pages/Meals';
-// import Drinks from './pages/Drinks';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import PageNotFound from './pages/PageNotFound';
-// import DrinksAndMeals from './pages/DrinksAndMeals';
 import Recipes from './pages/Recipes';
-import RecipeDetails from './pages/RecipeDetails';
+import RecipeDetails from './components/RecipeDetails';
 
 function App() {
   return (

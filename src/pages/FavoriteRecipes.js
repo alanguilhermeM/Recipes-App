@@ -1,66 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import heartIcon from '../images/blackHeartIcon.svg';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function FavoriteRecipes() {
   const [favorite, setFavorite] = useState([]);
 
   // descomentar o recover do localStorage
   const recoverFavorites = JSON.parse(localStorage
-    .getItem('doneRecipes')) || { favoriteRecipes: [] };
-  const { favoriteRecipes } = recoverFavorites;
-
-  // remover o OBJ abaixo quando terminar
-  // const recoverFavorites = {
-  //   favoriteRecipes: [
-  //     {
-  //       id: 17222,
-  //       type: 'drink',
-  //       nationality: '',
-  //       category: 'Cocktail',
-  //       alcoholicOrNot: 'Alcoholic',
-  //       name: 'A1',
-  //       image: 'https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg',
-  //     },
-  //     {
-  //       id: 52977,
-  //       type: 'meal',
-  //       nationality: 'Turkish',
-  //       category: 'Side',
-  //       alcoholicOrNot: '',
-  //       name: 'Corba',
-  //       image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
-  //     },
-  //   ],
-  // };
+    .getItem('favoriteRecipes')) || [];
 
   useEffect(() => {
-    setFavorite(favoriteRecipes);
+    setFavorite(recoverFavorites);
   }, []);
 
-  // remover a linha abaixo quando terminar.
-  // const { favoriteRecipes } = recoverFavorites;
-  // remover a linha abaixo quando terminar
-  // localStorage.setItem('doneRecipes', JSON.stringify({ favoriteRecipes }));
-
   const filterByType = (type) => {
-    const filteredFav = favoriteRecipes.filter((f) => f.type === type);
+    const filteredFav = recoverFavorites.filter((f) => f.type === type);
     setFavorite(filteredFav);
   };
 
   const filterAll = () => {
-    setFavorite(recoverFavorites.favoriteRecipes);
+    setFavorite(recoverFavorites);
   };
 
   const removeFavorite = (id) => {
     const favoriteRecipe = favorite.filter((f) => f.id !== id);
     setFavorite(favoriteRecipe);
     localStorage.setItem(
-      'doneRecipes',
-      JSON.stringify({ favoriteRecipes: favoriteRecipe }),
+      'favoriteRecipes',
+      JSON.stringify(favoriteRecipe),
     );
   };
 
@@ -92,6 +64,7 @@ export default function FavoriteRecipes() {
       </div>
 
       <div>
+        <ToastContainer />
         { favorite
         && favorite.map((fav, index) => (
           <div key={ index }>
@@ -107,22 +80,25 @@ export default function FavoriteRecipes() {
             <h5 data-testid={ `${index}-horizontal-top-text` }>
 
               {' '}
-              { fav.category }
-              {' '}
-              {' '}
               {fav.nationality}
+              {' '}
+              -
+              {' '}
+              { fav.category }
               {fav.alcoholicOrNot}
 
             </h5>
 
             <button
+              src={ shareIcon }
               data-testid={ `${index}-horizontal-share-btn` }
-              onClick={ () => { copy(`http://localhost:3000/${fav.type}s/${fav.id}`); global.alert('Link copied!'); } }
+              onClick={ () => { toast.info('Link copied!'); copy(`http://localhost:3000/${fav.type}s/${fav.id}`); } }
             >
               <img src={ shareIcon } alt="share Icon" />
 
             </button>
             <button
+              src={ heartIcon }
               data-testid={ `${index}-horizontal-favorite-btn` }
               onClick={ () => removeFavorite(fav.id) }
             >

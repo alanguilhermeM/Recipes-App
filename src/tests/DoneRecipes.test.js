@@ -19,7 +19,7 @@ describe('Tests for "DoneRecipes" page', () => {
     );
   });
 
-  it('Tests the filter buttons', () => {
+  it('Tests the filter ', () => {
     const filters = ['All', 'Meal', 'Drink'];
     filters.forEach((filter) => {
       const filterButton = screen.getByText(filter);

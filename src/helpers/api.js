@@ -37,3 +37,17 @@ export const fetchApi = async (pathname, param1, param2, param3) => {
     fetchRecomendations(pathname);
   }
 };
+
+export const fetchProgressApi = async (tipo, id, set) => {
+  const setRecipeData = set;
+  let endpoint;
+  if (tipo === 'meals') {
+    endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  } else {
+    endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  }
+  const response = await fetch(endpoint);
+  const data = await response.json();
+  console.log(data[tipo][0]);
+  setRecipeData(data[tipo][0]);
+};

@@ -38,8 +38,9 @@ export const fetchApi = async (pathname, param1, param2, param3) => {
   }
 };
 
-export const fetchProgressApi = async (tipo, id, set) => {
-  const setRecipeData = set;
+export const fetchProgressApi = async (tipo, id, set1, set2) => {
+  const setRecipeData = set1;
+  const setListIngredientes = set2;
   let endpoint;
   if (tipo === 'meals') {
     endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -48,6 +49,21 @@ export const fetchProgressApi = async (tipo, id, set) => {
   }
   const response = await fetch(endpoint);
   const data = await response.json();
+  const data2 = data[tipo][0];
+
   console.log(data[tipo][0]);
-  setRecipeData(data[tipo][0]);
+  const ingredients = [];
+  const n = 20;
+  for (let i = 1; i <= n; i += 1) {
+    const ingredient = data2[`strIngredient${i}`];
+    const measure = data2[`strMeasure${i}`];
+    if (ingredient && ingredient.trim() !== '' && measure && measure.trim() !== '') {
+      ingredients.push({
+        ingredient: ingredient.trim(),
+        measure: measure.trim(),
+      });
+    }
+  }
+  setListIngredientes(ingredients);
+  setRecipeData(data2);
 };

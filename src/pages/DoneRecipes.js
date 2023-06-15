@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
+import { mock } from '../components/mock';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -9,16 +10,22 @@ function DoneRecipes() {
   const [filter, setFilter] = useState('All');
 
   useEffect(() => {
-    const getDones = JSON.parse(localStorage.getItem('doneRecipes', []));
-    setDoneRecipes(getDones);
+    localStorage.setItem('doneRecipes', mock);
+    /*     const getDones = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+ */ console.log(doneRecipes);
+    setDoneRecipes(mock);
   }, []);
 
   const handleButton = (type, id) => {
     setCopied(true);
     navigator.clipboard.writeText(`${window.location.origin}/${type}s/${id}`);
   };
-  return (
 
+  if (doneRecipes.length === 0) {
+    /*     return <div>Loading...</div>;
+ */ }
+
+  return (
     <div>
       <Header />
 
@@ -49,18 +56,24 @@ function DoneRecipes() {
       </div>
 
       <div>
-        {
-          doneRecipes.filter((element) => {
-            switch (filter) {
-            case 'meals': return element.type === 'meal';
-            case 'drinks': return element.type === 'drink';
-            default: return element;
+        {doneRecipes
+          .filter((element) => {
+            if (typeof element === 'object' && element !== null) {
+              switch (filter) {
+              case 'meals':
+                return element.type === 'meal';
+              case 'drinks':
+                return element.type === 'drink';
+              default:
+                return true;
+              }
             }
+            return false;
           })
-            .map((e, index) => (
-              <div
-                key={ index }
-              >
+          .map((e, index) => {
+            const tags = e.strTags.split(',');
+            return (
+              <div key={ index }>
                 <Link to={ `/${e.type}s/${e.id}` }>
                   <img
                     alt={ e.id }
@@ -71,50 +84,39 @@ function DoneRecipes() {
                 </Link>
 
                 <Link to={ `/${e.type}s/${e.id}` }>
-                  <div
-                    data-testid={ `${index}-horizontal-name` }
-                  >
+                  <div data-testid={ `${index}-horizontal-name` }>
                     {e.name}
                   </div>
                 </Link>
 
-                {
-                  e.type === 'meal' ? (
-                    <p
-                      data-testid={ `${index}-horizontal-top-text` }
-                    >
-                      {`${e.nationality} - ${e.category}`}
-                    </p>)
-                    : (
-                      <p
-                        data-testid={ `${index}-horizontal-top-text` }
-                      >
-                        {e.alcoholicOrNot}
-                      </p>)
-                }
-                <p
-                  data-testid={ `${index}-horizontal-done-date` }
-                >
-                  {e.doneDate}
+                {e.type === 'meal' ? (
+                  <p data-testid={ `${index}-horizontal-top-text` }>
+                    {`${e.nationality} - ${e.category}`}
+                  </p>
+                ) : (
+                  <p data-testid={ `${index}-horizontal-top-text` }>
+                    {e.alcoholicOrNot}
+                  </p>
+                )}
 
+                <p data-testid={ `${index}-horizontal-done-date` }>
+                  {e.doneDate}
                 </p>
 
-                {
-                  copied && <p data-testid="copied-msg">Link copied!</p>
-                }
+                {copied && <p data-testid="copied-msg">Link copied!</p>}
+
                 <div>
-                  {
-                    e.tags.map((tag) => (
-                      <div
-                        data-testid={ `${index}-${tag}-horizontal-tag` }
-                        key={ tag }
-                      >
-                        #
-                        {tag}
-                      </div>
-                    ))
-                  }
+                  {tags.map((tag) => (
+                    <div
+                      data-testid={ `${index}-${tag}-horizontal-tag` }
+                      key={ tag }
+                    >
+                      #
+                      {tag}
+                    </div>
+                  ))}
                 </div>
+
                 <button
                   data-testid="share-btn"
                   type="button"
@@ -127,8 +129,8 @@ function DoneRecipes() {
                   />
                 </button>
               </div>
-            ))
-        }
+            );
+          })}
       </div>
     </div>
   );

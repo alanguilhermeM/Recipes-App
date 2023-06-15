@@ -1,5 +1,6 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
@@ -7,43 +8,44 @@ import App from '../App';
 import Provider from '../context/myProvider';
 
 describe('Tests for "DoneRecipes" page', () => {
-  beforeEach(() => {
-    const history = createMemoryHistory();
-    history.push('/done-recipes');
-    render(
-      <Router history={ history }>
+  const renderWithRouterAndContext = (component, path = '/') => {
+    const history = createMemoryHistory({ initialEntries: [path] });
+    return ({
+      ...render(
         <Provider>
-          <App />
-        </Provider>
-      </Router>,
-    );
-  });
-
-  it('Tests the filter ', () => {
-    const filters = ['All', 'Meal', 'Drink'];
-    filters.forEach((filter) => {
-      const filterButton = screen.getByText(filter);
-      expect(filterButton).toBeInTheDocument();
+          <Router history={ history }>
+            {component}
+          </Router>
+        </Provider>,
+      ),
+      history,
     });
-  });
+  };
 
-  it('Tests the rendering of recipes', () => {
-    mockDoneRecipes.forEach((recipe) => {
-      const recipeItem = screen.getByText(recipe.strMeal || recipe.strDrink);
-      expect(recipeItem).toBeInTheDocument();
+  it('Testa se renderiza os botões de filtro', () => {
+    const { history } = renderWithRouterAndContext(<App />, '/done-recipes');
+    expect(history.location.pathname).toBe('/done-recipes');
+
+    const buttonDrink = screen.getByRole('button', {
+      name: /drinks/i,
     });
-  });
-
-  it('Tests the filtering of recipes', () => {
-    const mealsButton = screen.getByText(/meal/i);
-    act(() => {
-      userEvent.click(mealsButton);
+    const buttonMeals = screen.getByRole('button', {
+      name: /meals/i,
+    });
+    const buttonAll = screen.getByRole('button', {
+      name: /all/i,
     });
 
-    const drinkRecipe = screen.queryByText(/aquamarine/i);
-    expect(drinkRecipe).not.toBeInTheDocument();
+    userEvent.click(buttonDrink);
+    const drinkName = screen.getByText(/aquamarine/i);
+    expect(drinkName).toBeInTheDocument();
 
-    const mealRecipe = screen.getByText(/spicy/i);
-    expect(mealRecipe).toBeInTheDocument();
+    userEvent.click(buttonMeals);
+    const mealsName = screen.getByText(/spicy arrabiata penne/i);
+    expect(mealsName).toBeInTheDocument();
+
+    userEvent.click(buttonAll);
+    expect(drinkName).toBeInTheDocument();
+    expect(mealsName).toBeInTheDocument();
   });
 });

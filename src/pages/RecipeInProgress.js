@@ -20,7 +20,6 @@ export default function RecipeInProgress() {
 
     const verificacao = listIngredientes.every((item) => item.checked === true);
     setDisable(!verificacao);
-
     setListIngredientes(updatedList);
   }
   function handleCopyLink() {

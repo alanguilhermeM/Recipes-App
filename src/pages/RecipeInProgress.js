@@ -12,6 +12,7 @@ export default function RecipeInProgress() {
   const opcao = tipo === 'meals' ? 'Meal' : 'Drink'; // para pegar na chave do retorno da api
   const [disable, setDisable] = useState(true);
   const history = useHistory(true);
+  const [copied, setCopied] = useState(false);
 
   function handleCheckboxChange(index, event) {
     const updatedList = [...listIngredientes];
@@ -22,7 +23,16 @@ export default function RecipeInProgress() {
 
     setListIngredientes(updatedList);
   }
-
+  function handleCopyLink() {
+    navigator.clipboard.writeText(location)
+      .then(() => {
+        setCopied(true);
+      });
+    const time = 2000;
+    setTimeout(() => {
+      setCopied(false);
+    }, time);
+  }
   const handleSubmit = () => {
     localStorage.setItem('doneRecipes', JSON.stringify(id));
     history.push('/done-recipes');
@@ -42,9 +52,11 @@ export default function RecipeInProgress() {
 
       <h1 data-testid="recipe-title">{recipeData[`str${opcao}`]}</h1>
 
-      <button data-testid="share-btn">
+      <button data-testid="share-btn" onClick={ handleCopyLink }>
         Compartilhar
       </button>
+
+      {copied && <p>Link copied!</p>}
 
       <button data-testid="favorite-btn">Favoritar</button>
 

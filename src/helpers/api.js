@@ -51,7 +51,6 @@ export const fetchProgressApi = async (tipo, id, set1, set2) => {
   const data = await response.json();
   const data2 = data[tipo][0];
 
-  console.log(data[tipo][0]);
   const ingredients = [];
   const n = 20;
   for (let i = 1; i <= n; i += 1) {
@@ -61,6 +60,7 @@ export const fetchProgressApi = async (tipo, id, set1, set2) => {
       ingredients.push({
         ingredient: ingredient.trim(),
         measure: measure.trim(),
+        checked: false,
       });
     }
   }

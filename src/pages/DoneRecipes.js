@@ -12,7 +12,7 @@ function DoneRecipes() {
   useEffect(() => {
     localStorage.setItem('doneRecipes', mock);
     /*     const getDones = JSON.parse(localStorage.getItem('doneRecipes')) || [];
- */ console.log(doneRecipes);
+ */
     setDoneRecipes(mock);
   }, []);
 
@@ -22,8 +22,8 @@ function DoneRecipes() {
   };
 
   if (doneRecipes.length === 0) {
-    /*     return <div>Loading...</div>;
- */ }
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>

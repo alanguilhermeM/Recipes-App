@@ -1,6 +1,12 @@
 import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import './mockMatchMedia';
 import renderWithRouter from '../helpers/renderWithRouter';
+
+window.matchMedia = jest.fn().mockImplementation(() => ({
+  addListener: jest.fn(),
+  removeListener: jest.fn(),
+}));
 
 describe('Testando o componentes de Header', () => {
   test('Testando o Header no Profile', () => {

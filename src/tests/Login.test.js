@@ -1,6 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import './mockMatchMedia';
 import Login from '../pages/Login';
+
+window.matchMedia = jest.fn().mockImplementation(() => ({
+  addListener: jest.fn(),
+  removeListener: jest.fn(),
+}));
 
 describe('Pagina login', () => {
   const email = 'dhiego@gmail.com';

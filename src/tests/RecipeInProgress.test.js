@@ -1,10 +1,15 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import './mockMatchMedia';
 import renderWithRouterAndContext from '../helpers/renderWithRouterAndContext';
 import App from '../App';
 import { mockData } from './mockData';
 
 const path = '/drinks/15997/in-progress';
+window.matchMedia = jest.fn().mockImplementation(() => ({
+  addListener: jest.fn(),
+  removeListener: jest.fn(),
+}));
 describe('Testando a página Recipe In Progress', () => {
   const { history } = renderWithRouterAndContext(<App />, path);
   beforeEach(() => {

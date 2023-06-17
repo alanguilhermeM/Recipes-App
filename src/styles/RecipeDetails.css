@@ -1,0 +1,9 @@
+@media screen and ( max-width : 360px ) {
+
+  .btn {
+    bottom: 0;
+    display: flex;
+    position: fixed;
+    right: 180px;
+  }
+}

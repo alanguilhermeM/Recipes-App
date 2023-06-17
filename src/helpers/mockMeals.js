@@ -30,3 +30,15 @@ export const mockNameMeals = {
     },
   ],
 };
+
+export const mockDetailsMeals = {
+  meals: [
+    {
+      idMeal: '53060',
+      strMeal: 'Burek',
+      strCategory: 'Side',
+      strIngredient1: 'Filo Pastry',
+      strMeasure1: '1 Packet',
+    },
+  ],
+};

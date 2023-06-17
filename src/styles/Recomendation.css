@@ -1,0 +1,30 @@
+.body {
+  background: #ccc;
+  display: flex;
+}
+
+.slick-slide > div {
+  margin: 0 10px;
+}
+
+.slick-list {
+  margin: 0 -10px;
+}
+
+.carousel {
+  background: black;
+  border: 1px solid white;
+  border-radius: 8px;
+  color: white;
+  height: 100px;
+  overflow: hidden;
+  width: 1000px;
+}
+
+.carousel-container {
+  width: 400px;
+}
+
+.img {
+  width: 100px;
+}

@@ -1,6 +1,6 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
+import './mockMatchMedia';
 import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
@@ -8,6 +8,10 @@ import App from '../App';
 import Provider from '../context/myProvider';
 
 const doneRecipes = '/done-recipes';
+window.matchMedia = jest.fn().mockImplementation(() => ({
+  addListener: jest.fn(),
+  removeListener: jest.fn(),
+}));
 
 describe('Tests for "DoneRecipes" page', () => {
   const renderWithRouterAndContext = (component, path = '/') => {

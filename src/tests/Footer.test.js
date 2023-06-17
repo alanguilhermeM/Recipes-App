@@ -1,11 +1,17 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
+import './mockMatchMedia';
 import { createMemoryHistory } from 'history';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Provider from '../context/myProvider';
 import App from '../App';
 import renderWithRouter from '../helpers/renderWithRouter';
+
+window.matchMedia = jest.fn().mockImplementation(() => ({
+  addListener: jest.fn(),
+  removeListener: jest.fn(),
+}));
 
 const renderWithRouterAndContext = (component, path = '/') => {
   const history = createMemoryHistory({ initialEntries: [path] });

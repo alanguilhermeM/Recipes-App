@@ -10,9 +10,7 @@ function DoneRecipes() {
   const [filter, setFilter] = useState('All');
 
   useEffect(() => {
-    localStorage.setItem('doneRecipes', mock);
-    /*     const getDones = JSON.parse(localStorage.getItem('doneRecipes')) || [];
- */
+    localStorage.setItem('doneRecipes', JSON.stringify(mock));
     setDoneRecipes(mock);
   }, []);
 

@@ -1,9 +1,15 @@
 import { screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import './mockMatchMedia';
 import renderWithRouterAndContext from '../helpers/renderWithRouterAndContext';
 import App from '../App';
 import { mockFirstLetterMeals, mockIngredientMeals, mockNameMeals } from '../helpers/mockMeals';
 import { mockFirstLetter, mockIngredientDrinks, mockNameDrinks } from '../helpers/mockDrinks';
+
+window.matchMedia = jest.fn().mockImplementation(() => ({
+  addListener: jest.fn(),
+  removeListener: jest.fn(),
+}));
 
 describe('Testando a barra de pesquisa da rota drinks', () => {
   const reci = '0-recipe-card';
